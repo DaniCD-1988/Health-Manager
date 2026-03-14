@@ -1,8 +1,10 @@
 package com.example.healthmanager;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -16,7 +18,7 @@ public class GestorBD extends SQLiteOpenHelper {
 
     //Variables tabla Usuario y sus columnas:
     public static final String TABLA_USUARIO = "usuario";
-    public static final String USUARIO_ID = "id";
+    public static final String USUARIO_ID = "id_usuario";
     public static final String USUARIO_NOMBRE = "nombre";
     public static final String USUARIO_EDAD = "edad";
     public static final String USUARIO_SEXO = "sexo";
@@ -27,7 +29,7 @@ public class GestorBD extends SQLiteOpenHelper {
 
     //Variables tabla Evento y sus columnas:
     public static final String TABLA_EVENTO = "evento";
-    public static final String EVENTO_ID = "id";
+    public static final String EVENTO_ID = "id_evento";
     public static final String EVENTO_NOMBRE = "nombre";
     public static final String EVENTO_DESCRIPCION = "descripcion";
     public static final String EVENTO_REPITE = "se_repite";
@@ -36,7 +38,7 @@ public class GestorBD extends SQLiteOpenHelper {
 
     //Variables tabla Dia y sus columnas:
     public static final String TABLA_DIA = "dia";
-    public static final String DIA_ID = "id";
+    public static final String DIA_ID = "id_dia";
     public static final String DIA_FECHA = "fecha";
     public static final String DIA_EMOCION = "emocion";
     public static final String DIA_ID_EVENTO = "id_evento";
@@ -75,14 +77,38 @@ public class GestorBD extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + TABLA_EVENTO + " VALUES (null, 'Evento Prueba', 'Descripcion Evento Prueba', 0, 1)");
         db.execSQL("INSERT INTO " + TABLA_DIA + " VALUES (null, '2026-01-01', 'Feliz', 1)");
 
-
-
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        //Solo se ejecuta si aumenta la version de la BD!
+        //Este codigo SOLO se ejecuta si aumenta la version de la BD!
+
+        //Activamos las Foreign Keys:
+        db.execSQL("PRAGMA foreign_keys = ON");
     }
+
+
+    //Metodo de prueba para mostrar por consola los datos de prueba:
+    public void consultarUsuario(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery("SELECT * FROM " + TABLA_USUARIO, null);
+
+        if (cur.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            while (!cur.isAfterLast()) {
+                Log.d("GestorBD", cur.getInt(0) + " - " + cur.getString(1) + " - "
+                                + cur.getInt(2) + " - " + cur.getString(3) + " - "
+                                + cur.getFloat(4) + " - " + cur.getFloat(5) + " - "
+                                + cur.getString(6));
+
+                cur.moveToNext();
+            }
+        }
+        cur.close();
+        db.close();
+
+    }
+
 }
