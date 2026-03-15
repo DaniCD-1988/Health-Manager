@@ -97,7 +97,7 @@ public class GestorBD extends SQLiteOpenHelper {
         if (cur.moveToFirst()) {
             //Recorremos el cursor hasta que no haya más registros y mostramos los datos por consola
             while (!cur.isAfterLast()) {
-                Log.d("PruebaGestorBD", "CONSULTA USUARIO DE PRUEBA: \n-ID: " + cur.getInt(0)
+                Log.d("GestorBD", "CONSULTA USUARIO DE PRUEBA: \n-ID: " + cur.getInt(0)
                         + "\n-Nombre: " + cur.getString(1)
                         + "\n-Edad: " + cur.getInt(2)
                         + "\n-Sexo: " + cur.getString(3)
