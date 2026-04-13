@@ -29,11 +29,8 @@
         android:theme="@style/Theme.HealthManager" >
         <activity
             android:name="fend.crono.Cronometro"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.HealthManager" />
-        <activity
-            android:name="com.example.healthmanager.Cronometro"
-            android:exported="false" />
         <activity
             android:name="fend.form.Formulario"
             android:exported="true" />

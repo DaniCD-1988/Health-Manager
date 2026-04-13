@@ -3,10 +3,12 @@ package com.example.healthmanager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 //SISTEMA GESTOR DE LA BD DE LA APP HEALTH MANAGER
@@ -59,6 +61,9 @@ public class GestorBD extends SQLiteOpenHelper {
         super(context, NOMBRE_BD, null, VERSION);
 
     }
+
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
