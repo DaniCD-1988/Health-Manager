@@ -1,4 +1,4 @@
-package fend.crono;
+package FernandoDiaz.crono;
 
 import android.os.Bundle;
 import android.os.Handler;

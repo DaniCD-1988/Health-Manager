@@ -28,14 +28,14 @@
         android:testOnly="true"
         android:theme="@style/Theme.HealthManager" >
         <activity
-            android:name="fend.crono.Cronometro"
+            android:name="FernandoDiaz.CalendarActivity"
+            android:exported="true" />
+        <activity
+            android:name="FernandoDiaz.crono.Cronometro"
             android:exported="true"
             android:theme="@style/Theme.HealthManager" />
         <activity
-            android:name="fend.form.Formulario"
-            android:exported="true" />
-        <activity
-            android:name="com.example.healthmanager.CalendarioActivity"
+            android:name="FernandoDiaz.form.Formulario"
             android:exported="true" />
         <activity
             android:name="com.example.healthmanager.ResumenActividadActivity"
@@ -50,6 +50,11 @@
             </intent-filter>
         </activity>
 
+        <provider
+            android:name="com.prolificinteractive.materialcalendarview.MaterialCalendarViewInitProvider"
+            android:authorities="com.example.healthmanager.materialcalendarviewinitprovider"
+            android:enabled="true"
+            android:exported="false" />
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.example.healthmanager.androidx-startup"
