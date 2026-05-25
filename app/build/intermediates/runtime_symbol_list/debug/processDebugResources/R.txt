@@ -3625,6 +3625,11 @@ int drawable ic_mtrl_chip_checked_black 0x7f07009c
 int drawable ic_mtrl_chip_checked_circle 0x7f07009d
 int drawable ic_mtrl_chip_close_circle 0x7f07009e
 int drawable ic_search_black_24 0x7f07009f
+int drawable icon_bike 0x7f0700ed
+int drawable icon_gym 0x7f0700ee
+int drawable icon_run 0x7f0700ef
+int drawable icon_walk 0x7f0700f0
+int drawable icon_yoga 0x7f0700f1
 int drawable m3_avd_hide_password 0x7f0700a0
 int drawable m3_avd_show_password 0x7f0700a1
 int drawable m3_bottom_sheet_drag_handle 0x7f0700a2

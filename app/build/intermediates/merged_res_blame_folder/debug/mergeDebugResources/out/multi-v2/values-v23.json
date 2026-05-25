@@ -4,7 +4,7 @@
             "outputFile": "com.example.healthmanager.app-mergeDebugResources-44:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Usuario\\.gradle\\caches\\9.3.1\\transforms\\403aab731de4c1ef2318e0cc4db926a6\\workspace\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\jorge\\.gradle\\caches\\9.3.1\\transforms\\403aab731de4c1ef2318e0cc4db926a6\\workspace\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Usuario\\.gradle\\caches\\9.3.1\\transforms\\dc50eba268d88819df23dd3b98c29618\\workspace\\transformed\\appcompat-1.7.1\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\jorge\\.gradle\\caches\\9.3.1\\transforms\\dc50eba268d88819df23dd3b98c29618\\workspace\\transformed\\appcompat-1.7.1\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -34,7 +34,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Usuario\\.gradle\\caches\\9.3.1\\transforms\\574397b9849683962fa22db9eae3aa77\\workspace\\transformed\\material-1.13.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\jorge\\.gradle\\caches\\9.3.1\\transforms\\574397b9849683962fa22db9eae3aa77\\workspace\\transformed\\material-1.13.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,5,9,13,16,19,22,25,28,32",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -53,7 +53,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Usuario\\Desktop\\HealtManager\\app\\src\\main\\res\\values-v23\\themes.xml",
+                    "source": "C:\\Users\\jorge\\StudioProjects\\HealtManager\\app\\src\\main\\res\\values-v23\\themes.xml",
                     "from": {
                         "startLines": "1",
                         "startColumns": "2",

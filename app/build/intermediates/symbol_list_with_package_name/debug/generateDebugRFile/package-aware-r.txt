@@ -6,6 +6,11 @@ drawable circular_progress
 drawable fondo_redondeado
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable icon_bike
+drawable icon_gym
+drawable icon_run
+drawable icon_walk
+drawable icon_yoga
 drawable rounded_container
 id FirstFragment
 id SecondFragment

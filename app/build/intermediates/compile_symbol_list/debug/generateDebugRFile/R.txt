@@ -5,6 +5,11 @@ int drawable circular_progress 0x0
 int drawable fondo_redondeado 0x0
 int drawable ic_launcher_background 0x0
 int drawable ic_launcher_foreground 0x0
+int drawable icon_bike 0x0
+int drawable icon_gym 0x0
+int drawable icon_run 0x0
+int drawable icon_walk 0x0
+int drawable icon_yoga 0x0
 int drawable rounded_container 0x0
 int id FirstFragment 0x0
 int id SecondFragment 0x0
