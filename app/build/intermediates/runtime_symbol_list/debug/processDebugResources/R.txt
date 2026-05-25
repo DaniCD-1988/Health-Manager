@@ -2448,7 +2448,7 @@ int color mtrl_textinput_disabled_color 0x7f050395
 int color mtrl_textinput_filled_box_default_background_color 0x7f050396
 int color mtrl_textinput_focused_box_stroke_color 0x7f050397
 int color mtrl_textinput_hovered_box_stroke_color 0x7f050398
-int color nav_colors 0x7f050399
+int color nav_color 0x7f0503b3
 int color notification_action_color_filter 0x7f05039a
 int color notification_icon_bg_color 0x7f05039b
 int color primary_dark_material_dark 0x7f05039c
@@ -3685,7 +3685,7 @@ int drawable mtrl_switch_thumb_unchecked_pressed 0x7f0700d7
 int drawable mtrl_switch_track 0x7f0700d8
 int drawable mtrl_switch_track_decoration 0x7f0700d9
 int drawable mtrl_tabs_default_indicator 0x7f0700da
-int drawable nav_redondeada 0x7f0700db
+int drawable nav_redonda 0x7f0700f1
 int drawable navigation_empty_icon 0x7f0700dc
 int drawable notification_action_background 0x7f0700dd
 int drawable notification_bg 0x7f0700de
@@ -4515,7 +4515,7 @@ int layout select_dialog_item_material 0x7f0b0070
 int layout select_dialog_multichoice_material 0x7f0b0071
 int layout select_dialog_singlechoice_material 0x7f0b0072
 int layout support_simple_spinner_dropdown_item 0x7f0b0073
-int menu barra_navegacion 0x7f0d0000
+int menu barra_navegadr 0x7f0d0003
 int menu bottom_menu 0x7f0d0001
 int menu menu_main 0x7f0d0002
 int mipmap ic_launcher 0x7f0e0000
