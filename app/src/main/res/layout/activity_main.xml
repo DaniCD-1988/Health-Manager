@@ -139,6 +139,42 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/tvDormirMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Dormir:"
+                    android:textColor="#FFFFFF" />
+
+                <ProgressBar
+                    android:id="@+id/progressDormirMain"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:max="24"
+                    android:progress="8"
+                    android:progressTint="#F44336" />
+
+                <TextView
+                    android:id="@+id/tvEjercicioMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Ejercicio:"
+                    android:textColor="#FFFFFF" />
+
+                <ProgressBar
+                    android:id="@+id/progressEjercicioMain"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:max="24"
+                    android:progress="2"
+                    android:progressTint="#4CAF50" />
+
             </LinearLayout>
 
             <!-- DATOS -->

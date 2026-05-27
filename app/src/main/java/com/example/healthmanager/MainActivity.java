@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import android.database.Cursor;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         curUsuario.close();
+
+        ProgressBar progressDormir = findViewById(R.id.progressDormirMain);
+        ProgressBar progressEjercicio = findViewById(R.id.progressEjercicioMain);
+
+        // Por ahora dejamos valores fijos como en la pestaña resumen o podrías consultarlos de la BD
+        progressDormir.setProgress(8);
+        progressEjercicio.setProgress(6);
 
         viewPagerTips = findViewById(R.id.viewPagerTips);
 
