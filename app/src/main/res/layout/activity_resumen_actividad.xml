@@ -62,7 +62,7 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="20dp"
-                    android:max="86400"
+                    android:max="18000"
                     android:progressDrawable="@drawable/barra_roja" />
 
                 <!-- CORRER -->
@@ -82,7 +82,7 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="20dp"
-                    android:max="86400"
+                    android:max="18000"
                     android:progressDrawable="@drawable/barra_morada" />
 
                 <!-- GIMNASIO -->
@@ -102,7 +102,7 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="20dp"
-                    android:max="86400"
+                    android:max="18000"
                     android:progressDrawable="@drawable/barra_amarilla" />
 
                 <!-- CICLISMO -->
@@ -122,7 +122,7 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="20dp"
-                    android:max="86400"
+                    android:max="18000"
                     android:progressDrawable="@drawable/barra_naranja" />
 
                 <!-- YOGA -->
@@ -142,7 +142,7 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="10dp"
-                    android:max="86400"
+                    android:max="18000"
                     android:progressDrawable="@drawable/barra_cian" />
 
             </LinearLayout>
@@ -160,6 +160,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/barra_navegacion" />
+        app:menu="@menu/barra_navegadr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

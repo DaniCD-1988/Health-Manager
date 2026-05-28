@@ -28,10 +28,6 @@ public class MainActivity extends AppCompatActivity {
     Handler sliderHandler = new Handler(Looper.getMainLooper());
     Runnable sliderRunnable;
 
-    // Vistas del resumen de actividad en el Main
-    protected TextView tvCaminar_Main, tvCorrer_Main, tvGimnasio_Main, tvCiclismo_Main, tvYoga_Main;
-    protected ProgressBar progressCaminar_Main, progressCorrer_Main, progressGimnasio_Main, progressCiclismo_Main, progressYoga_Main;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +43,6 @@ public class MainActivity extends AppCompatActivity {
             finish(); //Cerramos el MainActivity para que el usuario no pueda volver atrás
         }
 
-
-        // --- COMPROBAR REINICIO DIARIO ---
-        comprobarReinicioDiario();
-
-        // --- DATOS BIOMÉTRICOS ---
         TextView tvNombre = findViewById(R.id.tvNombre);
         TextView tvPeso = findViewById(R.id.tvPeso);
         TextView tvAltura = findViewById(R.id.tvAltura);
@@ -74,12 +65,10 @@ public class MainActivity extends AppCompatActivity {
             curUsuario.close();
         }
 
-        // --- RESUMEN DE ACTIVIDAD (Lógica calcada de ResumenActividadActivity) ---
-        inicializarVistasResumen();
-        cargarDatosActividad();
-
-        // --- CARRUSEL ---
         viewPagerTips = findViewById(R.id.viewPagerTips);
+        findViewById(R.id.btnIrPerfil).setOnClickListener(v -> {
+            startActivity(new Intent(this, PerfilUsuarioActivity.class));
+        });
         List<TipModel> tipsList = new ArrayList<>();
         tipsList.add(new TipModel("Recuerda dormir 8h", R.drawable.tip_sleep));
         tipsList.add(new TipModel("Consume alimentos naturales", R.drawable.tip_food));
@@ -96,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
                     nextItem = 0;
                 }
                 viewPagerTips.setCurrentItem(nextItem, true);
+
                 sliderHandler.postDelayed(this, 3000);
             }
         };
         sliderHandler.postDelayed(sliderRunnable, 3000);
 
-        // --- BARRA DE NAVEGACIÓN ---
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -109,116 +98,42 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.nav_home) {
                 return true;
             } else if (itemId == R.id.nav_calendar) {
-                startActivity(new Intent(this, CalendarActivity.class));
-                finish();
+                Intent intent = new Intent(this, CalendarActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             } else if (itemId == R.id.nav_timer) {
-                startActivity(new Intent(this, Cronometro.class));
-                finish();
+                Intent intent = new Intent(this, Cronometro.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             } else if (itemId == R.id.nav_summary) {
-                startActivity(new Intent(this, ResumenActividadActivity.class));
-                finish();
+                Intent intent = new Intent(this, ResumenActividadActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             }
             return false;
         });
+
     }
 
-    private void inicializarVistasResumen() {
-        // Vinculamos los IDs del main con la lógica del resumen
-        tvCaminar_Main = findViewById(R.id.tvCaminarMain);
-        tvCorrer_Main = findViewById(R.id.tvCorrerMain);
-        tvGimnasio_Main = findViewById(R.id.tvGimnasioMain);
-        tvCiclismo_Main = findViewById(R.id.tvCiclismoMain);
-        tvYoga_Main = findViewById(R.id.tvYogaMain);
-
-        progressCaminar_Main = findViewById(R.id.progressCaminarMain);
-        progressCorrer_Main = findViewById(R.id.progressCorrerMain);
-        progressGimnasio_Main = findViewById(R.id.progressGimnasioMain);
-        progressCiclismo_Main = findViewById(R.id.progressCiclismoMain);
-        progressYoga_Main = findViewById(R.id.progressYogaMain);
-    }
-
-    private void cargarDatosActividad() {
-        Cursor cursor = gbd.obtenerActividad();
-
-        int segundosCaminar = 0;
-        int segundosCorrer = 0;
-        int segundosGimnasio = 0;
-        int segundosCiclismo = 0;
-        int segundosYoga = 0;
-
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                String nombre = cursor.getString(cursor.getColumnIndexOrThrow(GestorBD.ACTIVIDAD_NOMBRE));
-                String tiempoString = cursor.getString(cursor.getColumnIndexOrThrow(GestorBD.ACTIVIDAD_TIEMPO));
-                int segundos = convertirHHMMSSaSegundos(tiempoString);
-
-                switch (nombre) {
-                    case "Caminar": segundosCaminar += segundos; break;
-                    case "Correr": segundosCorrer += segundos; break;
-                    case "Gimnasio": segundosGimnasio += segundos; break;
-                    case "Ciclismo": segundosCiclismo += segundos; break;
-                    case "Yoga": segundosYoga += segundos; break;
-                }
-            }
-            cursor.close();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Aseguramos que el ítem correcto esté seleccionado al volver a la actividad
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_home);
         }
-
-        actualizarVistaActividad(tvCaminar_Main, progressCaminar_Main, "Caminar", segundosCaminar);
-        actualizarVistaActividad(tvCorrer_Main, progressCorrer_Main, "Correr", segundosCorrer);
-        actualizarVistaActividad(tvGimnasio_Main, progressGimnasio_Main, "Gimnasio", segundosGimnasio);
-        actualizarVistaActividad(tvCiclismo_Main, progressCiclismo_Main, "Ciclismo", segundosCiclismo);
-        actualizarVistaActividad(tvYoga_Main, progressYoga_Main, "Yoga", segundosYoga);
-    }
-
-    private void actualizarVistaActividad(TextView textView, ProgressBar progressBar, String etiqueta, int segundosTotales) {
-        if (textView == null || progressBar == null) return;
-
-        int h = segundosTotales / 3600;
-        int m = (segundosTotales % 3600) / 60;
-        int s = segundosTotales % 60;
-        String tiempoFormateado = String.format(java.util.Locale.getDefault(), "%02d:%02d:%02d", h, m, s);
-
-        textView.setText(etiqueta + ": " + tiempoFormateado);
-        progressBar.setProgress(segundosTotales);
-    }
-
-    private void comprobarReinicioDiario() {
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
-        String fechaHoy = sdf.format(new java.util.Date());
-
-        android.content.SharedPreferences prefs = getSharedPreferences("ControlDiario", android.content.Context.MODE_PRIVATE);
-        String ultimaFecha = prefs.getString("ultima_fecha_uso", "");
-
-        if (!fechaHoy.equals(ultimaFecha)) {
-            gbd.reiniciarSegundosActividades();
-            prefs.edit().putString("ultima_fecha_uso", fechaHoy).apply();
-        }
-    }
-
-    private int convertirHHMMSSaSegundos(String tiempo) {
-        try {
-            if (tiempo == null || tiempo.isEmpty() || tiempo.equals("0")) return 0;
-            if (tiempo.contains(":")) {
-                String[] partes = tiempo.split(":");
-                if (partes.length == 3) {
-                    int h = Integer.parseInt(partes[0]);
-                    int m = Integer.parseInt(partes[1]);
-                    int s = Integer.parseInt(partes[2]);
-                    return (h * 3600) + (m * 60) + s;
-                }
-            }
-            return Integer.parseInt(tiempo);
-        } catch (Exception e) {
-            return 0;
-        }
+        sliderHandler.postDelayed(sliderRunnable, 3000);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
         sliderHandler.removeCallbacks(sliderRunnable);
     }
+
 }

@@ -62,6 +62,15 @@ public class ResumenActividadActivity extends AppCompatActivity {
         configurarNavegacion();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_summary);
+        }
+    }
+
     private void inicializarVistas() {
         tvCaminar_RA = findViewById(R.id.tvCaminar_RA);
         tvCorrer_RA = findViewById(R.id.tvCorrer_RA);

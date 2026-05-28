@@ -1,6 +1,7 @@
 package FernandoDiaz.form;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -37,6 +38,8 @@ public class Formulario extends AppCompatActivity {
     // --- Botón de confirmacion
     private Button btnConfirmar;
 
+    private boolean modoEdicion = false;
+    private GestorBD gestorBD;
 
     // logica principal
 
@@ -46,6 +49,15 @@ public class Formulario extends AppCompatActivity {
         setContentView(R.layout.activity_formulario);
 
         inicializarVistas();
+
+        gestorBD = new GestorBD(this);
+
+        // Comprobamos si venimos en modo edición
+        if (getIntent().getBooleanExtra("EDIT_MODE", false)) {
+            modoEdicion = true;
+            btnConfirmar.setText("Actualizar Datos");
+            cargarDatosParaEditar();
+        }
 
         btnConfirmar.setOnClickListener(v -> {
             if (validarFormulario()) {
@@ -62,28 +74,70 @@ public class Formulario extends AppCompatActivity {
                 String sexo   = (sexoId   == R.id.rbMasculino) ? "Masculino" : "Femenino";
                 String sangre = obtenerTipoSangre(sangreId);
 
-                //Lógica de envío de datos
-                GestorBD gestorBD = new GestorBD(this);
-                boolean exito = gestorBD.insertarUsuario(
-                        nombre + " " + apellido,  //Concatenamos nombre y apellido
-                        edad,
-                        sexo,
-                        altura,
-                        peso,
-                        sangre
-                );
-                //Si los datos se guardan correctamente, pasamos al MainActivity
+                boolean exito;
+                if (modoEdicion) {
+                    exito = gestorBD.actualizarUsuario(
+                            nombre + " " + apellido,
+                            edad,
+                            sexo,
+                            altura,
+                            peso,
+                            sangre
+                    );
+                } else {
+                    exito = gestorBD.insertarUsuario(
+                            nombre + " " + apellido,
+                            edad,
+                            sexo,
+                            altura,
+                            peso,
+                            sangre
+                    );
+                }
+
+                //Si los datos se guardan correctamente
                 if (exito) {
-                    Toast.makeText(this, "Bienvenido/a " + nombre + " " + apellido + "!", Toast.LENGTH_LONG).show();
-                    Intent pasarPantalla = new Intent(this, MainActivity.class);
-                    startActivity(pasarPantalla);
-                    finish();
+                    if (modoEdicion) {
+                        Toast.makeText(this, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(this, "Bienvenido/a " + nombre + " " + apellido + "!", Toast.LENGTH_LONG).show();
+                        Intent pasarPantalla = new Intent(this, MainActivity.class);
+                        startActivity(pasarPantalla);
+                        finish();
+                    }
                 } else { //Si no se guardan, mostramos el mensaje de error
                     Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        setTitle("Formulario");
+        setTitle(modoEdicion ? "Editar Perfil" : "Formulario");
+    }
+
+    private void cargarDatosParaEditar() {
+        Cursor cursor = gestorBD.obtenerUsuario();
+        if (cursor != null && cursor.moveToFirst()) {
+            String nombreCompleto = cursor.getString(cursor.getColumnIndexOrThrow(GestorBD.USUARIO_NOMBRE));
+            String[] partes = nombreCompleto.split(" ", 2);
+            if (partes.length > 0) etNombre.setText(partes[0]);
+            if (partes.length > 1) etApellido.setText(partes[1]);
+
+            etEdad.setText(String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(GestorBD.USUARIO_EDAD))));
+            etPeso.setText(String.valueOf(cursor.getDouble(cursor.getColumnIndexOrThrow(GestorBD.USUARIO_PESO))));
+            etAltura.setText(String.valueOf(cursor.getDouble(cursor.getColumnIndexOrThrow(GestorBD.USUARIO_ALTURA))));
+
+            String sexo = cursor.getString(cursor.getColumnIndexOrThrow(GestorBD.USUARIO_SEXO));
+            if ("Masculino".equalsIgnoreCase(sexo)) rgSexo.check(R.id.rbMasculino);
+            else if ("Femenino".equalsIgnoreCase(sexo)) rgSexo.check(R.id.rbFemenino);
+
+            String sangre = cursor.getString(cursor.getColumnIndexOrThrow(GestorBD.USUARIO_SANGRE));
+            if ("A".equals(sangre)) rgSangre.check(R.id.rbSangreA);
+            else if ("B".equals(sangre)) rgSangre.check(R.id.rbSangreB);
+            else if ("O".equals(sangre)) rgSangre.check(R.id.rbO);
+            else if ("AB".equals(sangre)) rgSangre.check(R.id.rbSangreAB);
+
+            cursor.close();
+        }
     }
 
     // ---------------------------
